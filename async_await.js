@@ -1,3 +1,5 @@
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+
 let parts = [
   { title: "A", price: "$200", moulded: true },
   { title: "B", price: "$200", moulded: true },
