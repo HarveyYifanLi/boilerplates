@@ -10,5 +10,5 @@ function deleteSpaces(str){
 }
 // function that deletes all spaces from a string using array method
 function deleteSpaces(str){
-  return str.split('').forEach(char => char.trim()).join();
+  return str.split('').map(char => char.trim()).join('');
 }
