@@ -22,20 +22,49 @@ function readLine() {
     return inputString[currentLine++];
 }
 
-function compareTriplets(a, b) {
+/*
+ * The function is expected to return an INTEGER.
+ * The function accepts 2D_INTEGER_ARRAY arr as parameter.
+ */
 
+function diagonalDifference(arr) {
+    //simple edge case checking
+    if(!arr || arr.length == 0 || arr.length != arr[0].length) return false;
+    //declare and initialize return data template and other variables
+    let priSum = 0;
+    let secSum = 0;
+    let result = 0;
+    //loop through the outer array
+    for(let i=0; i<arr.length; i++){
+        //loop through the inner array
+        for(let j=0; j<arr[i].length; j++){
+            //for primary diagonal: arr[0][0], arr[1][1], arr[2][2] -> arr[i][j] where i == j
+            //sum up for primary diagonal as 'priSum'
+            if(i == j) priSum += arr[i][j];
+            //for secondary diagonal: arr[0][2], arr[1][1], arr[2][0] -> arr[i][j] where i + j == arr.length - 1 
+            //sum up for secondary diagonal as 'secSum'
+            if(i + j == arr.length - 1) secSum += arr[i][j];
+        }
+    }
+    // calculate the abs diff of two sums and return it
+    result = Math.abs(priSum - secSum);
+    return result;
 }
 
 function main() {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
 
-    const a = readLine().replace(/\s+$/g, '').split(' ').map(aTemp => parseInt(aTemp, 10));
+    const n = parseInt(readLine().trim(), 10);
 
-    const b = readLine().replace(/\s+$/g, '').split(' ').map(bTemp => parseInt(bTemp, 10));
+    let arr = Array(n);
 
-    const result = compareTriplets(a, b);
+    for (let i = 0; i < n; i++) {
+        arr[i] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+    }
 
-    ws.write(result.join(' ') + '\n');
+    const result = diagonalDifference(arr);
+
+    ws.write(result + '\n');
 
     ws.end();
 }
